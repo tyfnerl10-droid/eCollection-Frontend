@@ -1,5 +1,3 @@
-
-
 export interface User {
     id: string;
     firstName: string;
@@ -26,6 +24,13 @@ export interface Invoice {
     status: string;
     createdAt: string;
     userId: string;
+}
+
+export interface CreateInvoiceData {
+    invoiceNumber: string;
+    description: string;
+    amount: number;
+    dueDate: string; 
 }
 
 export interface RegisterData {
@@ -59,4 +64,12 @@ export interface ResetPasswordData {
     token: string;
     newPassword: string;
     confirmPassword: string;
+}
+
+export interface UpdateInvoiceData {
+    invoiceNumber: string;
+    description: string;
+    amount: number;
+    dueDate: string;
+    status?: string; 
 }

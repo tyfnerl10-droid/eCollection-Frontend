@@ -6,6 +6,7 @@ import Register from './components/Register';
 import { useAuth } from './hooks/useAuth'; 
 import ResetPassword from './components/ResetPassword';
 import ForgotPassword from './components/ForgotPassword';
+import InvoiceDetail from './components/InvoiceDetail';
 
 
 
@@ -20,11 +21,7 @@ function App() {
 
     const PublicRoutes = () => {
         return !token ? <Outlet /> : <Navigate to="/dashboard" />;
-
-
     }
-
-
     return (
         <>
             {token && (
@@ -55,6 +52,7 @@ function App() {
                     <Route element={<PrivateRoutes />}>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/invoices" element={<Invoices />} />
+                        <Route path="/invoices/:invoiceNumber" element={<InvoiceDetail />} />
                     </Route>
 
                     {/* Baþlangýç rotasý: Herhangi bir eþleþmeyen URL, kullanýcýyý durumuna göre yönlendirir. */}

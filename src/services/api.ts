@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { AuthResponse, Invoice, LoginData, RegisterData, ApiResponse, User, ForgotPasswordData, ResetPasswordData } from '../types';
+import type { AuthResponse, Invoice, UpdateInvoiceData, LoginData, RegisterData, ApiResponse, User, ForgotPasswordData, ResetPasswordData, CreateInvoiceData } from '../types';
 
 const API_URL = 'https://localhost:7052/api';
 
@@ -46,5 +46,26 @@ export const forgotPassword = async (forgotPasswordData: ForgotPasswordData): Pr
 
 export const resetPassword = async (resetPasswordData: ResetPasswordData): Promise<ApiResponse<boolean>> => {
     const response = await apiClient.post<ApiResponse<boolean>>('/Auth/reset-password', resetPasswordData);
+    return response.data;
+};
+
+export const createInvoice = async (invoiceData: CreateInvoiceData): Promise<ApiResponse<Invoice>> => {
+    const response = await apiClient.post<ApiResponse<Invoice>>('/invoices', invoiceData);
+    return response.data;
+};
+
+export const deleteInvoice = async (invoiceNumber: string): Promise<ApiResponse<boolean>> => {
+    // Backend'deki DeleteInvoice endpoint'i /invoices/{invoiceNumber} rotasýný kullanýyor.
+    const response = await apiClient.delete<ApiResponse<boolean>>(`/invoices/${invoiceNumber}`);
+    return response.data;
+};
+
+export const getInvoiceByNumber = async (invoiceNumber: string): Promise<Invoice> => {
+    const response = await apiClient.get<ApiResponse<Invoice>>(`/invoices/${invoiceNumber}`);
+    return response.data.data;
+};
+
+export const updateInvoice = async (invoiceNumber: string, invoiceData: UpdateInvoiceData): Promise<ApiResponse<Invoice>> => {
+    const response = await apiClient.put<ApiResponse<Invoice>>(`/invoices/${invoiceNumber}`, invoiceData);
     return response.data;
 };
